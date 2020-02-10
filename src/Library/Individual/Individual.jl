@@ -33,10 +33,13 @@ Contains an individual
 ### `rng::S where S <: AbstractRNG`
 The RNG used for the monte carlos estimation
 """
-struct MLM_Individual{Q, S <: AbstractRNG} <: Individual{Q}
-    ind::Q
-    rng::S
-    function MLM_Individual(ind::T, rng::S) where {T <: Individual, S <: AbstractRNG}
-        return new{T, S}(ind, rng)
+struct MLM_Individual{T} <: Individual{T}
+	data::T
+    choice::Int64
+    n_sim::Int64
+    rng
+	ngamma::Int64
+    function MLM_Individual(ind::LM_Individual{T}, rng, ngamma::Int64) where T
+        return new{T}(ind.data, ind.choice, ind.n_sim, rng, ngamma)
     end
 end

@@ -1,20 +1,23 @@
 """
-A version of the well known AMLET package.
 
-Se AMLET at https://github.com/JLChartrand/AMLET.jl.git
+AMLET, An Other Mixed Logit Estimation Tool
 """
 
 module AMLET
 
 #The used Package
-using RDST, Statistics, LinearAlgebra, Distributions, Random, GERALDINE
+#using RDST, Statistics, LinearAlgebra, Distributions, Random, GERALDINE
+using Statistics, LinearAlgebra, ForwardDiff
+
+using RDST################
+
 
 #function redefined in AMLET
 import Base.iterate, Base.copy
 
 export 
     # batch types
-    Batch, BatchLM, BatchMLM, iterate, 
+    Batch, BatchLM, BatchMLM, 
     
     #basic function
     iterate, copy, 
@@ -33,8 +36,6 @@ export
     #predefine utility
     LU, UVINLU,
 
-    #A little surprise for a unpredicted reader
-    col, line,
 
     #the solve function 
     #solve,
@@ -53,6 +54,6 @@ export
 
 include("Library/main.jl")
 
-
+include("CI.jl")
 
 end # module

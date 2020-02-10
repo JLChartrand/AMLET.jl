@@ -9,9 +9,8 @@ function SP(θ::Vector, ind::MLM_Individual, U::Utilities, R::Int64)
 end
 
 function ∇SP(θ::Vector, ind::MLM_Individual, U::Utilities, R::Int64)
-    grad = zeros(length(θ))
-    for _ in 1:R
-        grad += ∇logit(θ, ind, U)
-    end
-    return grad/R
+    function tmp(θ::Vector)
+		return SP(θ, ind, U, R)
+	end
+	return ForwardDiff.gradient(tmp, θ)
 end

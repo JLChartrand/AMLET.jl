@@ -8,7 +8,7 @@ function complete_Model!(mlm::MLM, U::Utilities, R::Int64)
     
     function ∇F!(β::Array{Float64, 1}, stack::Array{Float64, 1}, b::Batch = batch)
 		reset_stream!(b.rng)
-		stack[:] = ∇SLL(β, b, U, R)
+		ForwardDiff.gradient!(stack, F, β)
     end
     
     

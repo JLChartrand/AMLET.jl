@@ -1,6 +1,5 @@
 mutable struct MLM <: Models
     batch::Batch
-    dim::Int64
     f::Function              
     ∇f!::Function             
     Hf!::Function             
@@ -15,9 +14,8 @@ mutable struct MLM <: Models
     undefine                 #wathever you want
     
     
-    function MLM(batch::Batch, dim::Int64)
+    function MLM(batch::Batch)
         mlm = new()
-        mlm.dim = dim
         mlm.batch = batch
         return mlm
     end

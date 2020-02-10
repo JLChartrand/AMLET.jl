@@ -15,5 +15,7 @@ end
 function ∇V_i(θ::Vector, X_i::Matrix, γ::Vector, i::Int64)
     return ([X_i X_i*Diagonal(γ)])[i,:]
 end
-
+"""
+Univariate Independent Normal Linear Utilities
+"""
 UVINLU = LinearUtilitie(V, ∇V, V_i, ∇V_i)
