@@ -17,7 +17,7 @@ import Base.iterate, Base.copy
 
 export 
     # batch types
-    Batch, BatchLM, BatchMLM, 
+    Batch, BatchLM,
     
     #basic function
     iterate, copy, 
