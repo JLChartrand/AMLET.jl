@@ -2,9 +2,8 @@
 #∇logit! and Hlogit! add the required value to the stack, they do not replace it
 
 function logit(θ::Vector, ind::MLM_Individual, U::Utilities)
-	rigued = Rigged(rand(ind.rng, ind.ngamma))
-    #println(γ)
-    uti = U.V(θ, ind.data, rigued)
+    gamma = rand(ind.rng, ind.ngamma)
+    uti = U.V(θ, ind.data, gamma)
     v_plus = maximum(uti)
     uti -= v_plus*ones(length(uti))
     map!(exp, uti, uti)
@@ -13,9 +12,9 @@ function logit(θ::Vector, ind::MLM_Individual, U::Utilities)
 end
 
 function ∇logit(θ::Vector, ind::MLM_Individual, U::Utilities)
-    rigued = Rigged(rand(ind.rng, ind.ngamma))
+    gamma = rand(ind.rng, ind.ngamma)
 
-    uti = U.V(θ, ind.data, rigued)
+    uti = U.V(θ, ind.data, gamma)
     v_plus = maximum(uti)
     
     uti -= v_plus*ones(length(uti))
@@ -23,9 +22,9 @@ function ∇logit(θ::Vector, ind::MLM_Individual, U::Utilities)
     s = sum(uti)
     
     
-    return (s*uti[ind.choice]*U.∇V_i(θ, ind.data, ind.choice, rigued) - 
+    return (s*uti[ind.choice]*U.∇V_i(θ, ind.data, ind.choice, gamma) - 
         
-        uti[ind.choice]*sum(uti[i]*U.∇V_i(θ, ind.data, i, rigued) for i in 1:length(uti)))/(s^2)
+        uti[ind.choice]*sum(uti[i]*U.∇V_i(θ, ind.data, i, gamma) for i in 1:length(uti)))/(s^2)
     
 
 end
