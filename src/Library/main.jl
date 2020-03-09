@@ -9,6 +9,3 @@ include("Models/main.jl")
 include("logit/main.jl")
 
 include("Mixed_Logit/main.jl")
-
-
-
