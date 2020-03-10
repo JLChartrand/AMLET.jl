@@ -1,5 +1,3 @@
-using Random
-
 """
 `abstract type Individual{T} end`
 """
