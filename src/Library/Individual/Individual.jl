@@ -32,12 +32,30 @@ Contains an individual
 The RNG used for the monte carlos estimation
 """
 struct MLM_Individual{T} <: Individual{T}
-	data::T
+    data::T
     choice::Int64
     n_sim::Int64
     rng
-	ngamma::Int64
+    ngamma::Int64
     function MLM_Individual(ind::LM_Individual{T}, rng, ngamma::Int64) where T
         return new{T}(ind.data, ind.choice, ind.n_sim, rng, ngamma)
     end
 end
+
+"""
+    `MLM_Individual_Panel{T} <: Individual{T}` contains the information for every step.
+"""
+struct MLM_Individual_Panel{T} <: Individual{T}
+    datas::Array{T, 1}
+    choices::Array{Int64, 1}
+    n_sim::Int64
+    rng
+    ngamma::Int64
+    function MLM_Individual(inds::Array{LM_Individual{T}, 1}, rng, ngamma::Int64) where T
+        return new{T}(getfield.(inds, :data), getfield.(ind, :choice), ind.n_sim, rng, ngamma)
+    end
+    function MLM_Individual(inds::Array{LM_Individual{T}, 1}, mlm_ind::LM_Individual{T}) where T
+        return new{T}([inds.datas; mlm_ind.data], [inds.choices; mlm_ind.choice], inds.n_sim, inds.rng, inds.ngamma)
+    end
+end
+

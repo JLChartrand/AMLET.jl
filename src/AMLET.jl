@@ -23,7 +23,7 @@ export
     iterate, copy, 
 
     #Individus Type
-    Individual, LM_Individual, MLM_Individual,
+    Individual, LM_Individual, MLM_Individual, MLM_Individual_Panel
 
     #Models type
     Models, LM, MLM,
